@@ -1,0 +1,13 @@
+{
+  "name": "Фонды Добра",
+  "short_name": "Добро",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/charity/img-1185.jpeg",
+      "sizes": "448x447",
+      "type": "image/png"
+    }
+  ]
+}
