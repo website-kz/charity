@@ -149,3 +149,32 @@ CREATE TABLE IF NOT EXISTS site_settings (
   setting_value TEXT,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- ===============================
+-- 13. Таблица: Фонды (рекомендуемые, партнёрские, локальные и др.)
+-- ===============================
+CREATE TABLE IF NOT EXISTS funds (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  category ENUM('education', 'health', 'animals', 'children', 'emergency', 'other') DEFAULT 'other',
+  region VARCHAR(255),
+  website VARCHAR(255),
+  contact_email VARCHAR(255),
+  logo_url VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ===============================
+-- 14. Таблица: Взаимодействие с карточками фондов (для аналитики и рекомендаций)
+-- ===============================
+CREATE TABLE IF NOT EXISTS fund_clicks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fund_id INT NOT NULL,
+  user_id INT, -- optional, можно NULL (для анонимов)
+  clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  source_page VARCHAR(255), -- например: 'home', 'search', 'recommendations'
+  user_ip VARCHAR(45),
+  FOREIGN KEY (fund_id) REFERENCES funds(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
